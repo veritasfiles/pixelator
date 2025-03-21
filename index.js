@@ -7,13 +7,14 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-950 text-white">
       <Head>
-        <title>Welcome to Pixel Engine</title>
+        <title>Welcome to Pixelator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <h1 className="text-4xl font-bold text-center mb-6">🧩 Pixel Engine</h1>
+      <h1 className="text-4xl font-bold text-center mb-6">🎨 Pixelator Engine</h1>
       <p className="text-lg text-gray-300 text-center max-w-xl mb-8">
-        Upload any image, customise the animation, and generate pixel-perfect visual art. Fully mobile friendly. PWA-ready. Built for creators.
+        Upload any image, customise the animation, and generate pixel-perfect visual art. 
+        Mobile friendly & PWA-ready. Built for fun - mine, not yours.
       </p>
 
       <Link href="/pixel-art">

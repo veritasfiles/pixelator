@@ -1,4 +1,4 @@
-// pages/index.js – Homepage with a button to Pixel Art Generator
+/index.js – Homepage with a button to Pixel Art Generator
 
 import Link from 'next/link';
 import Head from 'next/head';

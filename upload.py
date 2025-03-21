@@ -1,50 +1,50 @@
-# Pixel Art Generator for Google Colab
-import requests
+# streamlit_app.py
+
+import streamlit as st
 from PIL import Image
+import requests
 import io
-import matplotlib.pyplot as plt
-from google.colab import files
 
-# Function to load image from URL or upload
-def load_image():
-    print("Choose an option:")
-    print("1: Upload an image")
-    print("2: Paste an image URL")
-    choice = input("Enter 1 or 2: ")
+st.set_page_config(page_title="Pixel Art Generator", layout="centered")
+st.title("🎨 Pixel Art Generator")
+st.markdown("Convert any image into pixel art while preserving the original aesthetic.")
 
-    if choice == "1":
-        uploaded = files.upload()
-        filename = list(uploaded.keys())[0]
-        image = Image.open(filename)
-    elif choice == "2":
-        url = input("Enter the image URL: ")
-        response = requests.get(url)
-        image = Image.open(io.BytesIO(response.content))
-    else:
-        print("Invalid choice. Restart and enter 1 or 2.")
-        return None
-    return image.convert("RGB")
+# User input method
+option = st.radio("Choose an input method:", ("Upload an image", "Paste an image URL"))
 
-# Function to generate pixel art
-def generate_pixel_art(image, pixel_size=80):
-    original_size = image.size
-    small_img = image.resize((pixel_size, pixel_size), Image.NEAREST)
-    pixel_art = small_img.resize(original_size, Image.NEAREST)
-    return pixel_art
+image = None
 
-# Run the process
-image = load_image()
+if option == "Upload an image":
+    uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
+    if uploaded_file:
+        image = Image.open(uploaded_file).convert("RGB")
+
+elif option == "Paste an image URL":
+    url = st.text_input("Enter the image URL")
+    if url:
+        try:
+            response = requests.get(url)
+            image = Image.open(io.BytesIO(response.content)).convert("RGB")
+        except:
+            st.error("Could not load image from URL.")
+
+# Pixel size slider
+pixel_size = st.slider("Pixelation Level (higher = more detail)", min_value=10, max_value=200, value=80)
+
+# Generate and show pixel art
 if image:
-    print("Generating pixel art...")
-    pixel_art = generate_pixel_art(image, pixel_size=120)
+    st.subheader("Original Image")
+    st.image(image, use_column_width=True)
 
-    # Show pixel art
-    plt.imshow(pixel_art)
-    plt.axis("off")
-    plt.show()
+    # Resize and pixelate
+    small = image.resize((pixel_size, pixel_size), Image.NEAREST)
+    pixel_art = small.resize(image.size, Image.NEAREST)
 
-    # Save and download the result
-    pixel_art_path = "pixel_art_output.png"
-    pixel_art.save(pixel_art_path)
-    files.download(pixel_art_path)
+    st.subheader("🟡 Pixel Art Output")
+    st.image(pixel_art, use_column_width=True)
 
+    # Download button
+    output_path = "pixel_art_output.png"
+    pixel_art.save(output_path)
+    with open(output_path, "rb") as f:
+        st.download_button("Download Pixel Art", f, file_name="pixel_art_output.png", mime="image/png")

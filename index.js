@@ -14,7 +14,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center mb-6">🎨 Pixelator Engine</h1>
       <p className="text-lg text-gray-300 text-center max-w-xl mb-8">
         Upload any image, customise the animation, and generate pixel-perfect visual art. 
-        Mobile friendly & PWA-ready. Built for fun - mine, not yours.
+        Mobile friendly & PWA-ready. Built for fun - <em>(mine, not yours)</em>.
       </p>
 
       <Link href="/pixel-art">

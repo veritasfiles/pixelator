@@ -3,3 +3,5 @@ pillow
 requests
 numpy
 imageio
+pyimgur
+notion-client

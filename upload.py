@@ -12,7 +12,7 @@ st.set_page_config(page_title="Pixel Art Generator", layout="centered")
 st.title("🎨 Pixelator")
 st.markdown("Convert any image into pixel art with optional animated styles.")
 
-st.markdown("**Tip:** Drag and drop images to upload. Right-click > 'Copy Image' isn't supported yet.")
+st.markdown("**Tip:** Drag and drop images to upload.")
 
 # Input method
 option = st.radio("Choose an input method:", ("Upload an image", "Paste an image URL"))
